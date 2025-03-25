@@ -7,8 +7,10 @@ from PyQt6.QtCore import Qt, pyqtSignal
 import sys
 import time
 import ctypes
+import platform
 
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FragHub")
+if platform.system() == "Windows":
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FragHub")
 
 def format_time(time_in_seconds):
     """Format the time in seconds to HH:mm:ss"""

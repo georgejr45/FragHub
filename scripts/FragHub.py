@@ -13,12 +13,14 @@ from GUI.tabs.tab_filters import FiltersTab
 from GUI.tabs.tab_output_settings import OutputSettingTab
 from GUI.tabs.tab_projects import ProjectsTab
 from progress_window import ProgressWindow
+import platform
 
 from MAIN import MAIN
 import traceback
 import ctypes
 
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FragHub")
+if platform.system() == "Windows":
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FragHub")
 
 
 class MainWindow(QMainWindow):
