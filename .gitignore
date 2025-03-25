@@ -2,3 +2,4 @@
 /cmf_id_test/report.csv
 /datas/update.json
 .venv
+**/__pycache__/
