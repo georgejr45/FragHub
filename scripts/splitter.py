@@ -57,6 +57,10 @@ def split_LC_GC(POS, NEG, progress_callback=None, total_items_callback=None, pre
     :return: Four DataFrames (POS_LC, POS_GC, NEG_LC, NEG_GC).
     """
 
+     # Initial debugging: Print INSTRUMENTTYPE column
+    print("POS INSTRUMENTTYPE values:\n", POS[['INSTRUMENTTYPE']].drop_duplicates())
+    print("NEG INSTRUMENTTYPE values:\n", NEG[['INSTRUMENTTYPE']].drop_duplicates())
+
     # Initial callbacks to describe the process
     if prefix_callback:
         prefix_callback("Splitting LC/GC:")
@@ -72,6 +76,7 @@ def split_LC_GC(POS, NEG, progress_callback=None, total_items_callback=None, pre
     POS_GC = POS[POS['INSTRUMENTTYPE'].str.contains('GC|EI', case=False)]
     if progress_callback:
         progress_callback(len(POS_GC))  # Update progress after processing positive GC
+    
 
     # Splitting positive LC spectrums
     POS_LC = POS[~POS['INSTRUMENTTYPE'].str.contains('GC|EI', case=False)]
