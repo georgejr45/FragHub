@@ -1,15 +1,15 @@
-from .normalize_instruments_and_resolution import *
-from .missing_precursormz_re_calculation import *
-from .delete_no_smiles_no_inchi import *
-from .normalize_retentiontime import *
-from .repair_mol_descriptors import *
-from .check_for_bad_adduct import *
-from .normalize_ionization import *
-from .normalize_predicted import *
-from .normalize_ms_level import *
-from .normalize_empties import *
-from .normalize_ionmode import *
-from .normalize_adduct import *
+from scripts.normalizer.normalize_instruments_and_resolution import *
+from scripts.normalizer.missing_precursormz_re_calculation import *
+from scripts.normalizer.delete_no_smiles_no_inchi import *
+from scripts.normalizer.normalize_retentiontime import *
+from scripts.normalizer.repair_mol_descriptors import *
+from scripts.normalizer.check_for_bad_adduct import *
+from scripts.normalizer.normalize_ionization import *
+from scripts.normalizer.normalize_predicted import *
+from scripts.normalizer.normalize_ms_level import *
+from scripts.normalizer.normalize_empties import *
+from scripts.normalizer.normalize_ionmode import *
+from scripts.normalizer.normalize_adduct import *
 
 def normalize_values(metadata_dict):
     """
@@ -30,6 +30,12 @@ def normalize_values(metadata_dict):
 
     # If after the above operations the metadata_dict is not empty continue with the normalization
     if metadata_dict:
+        # Normalize Ionization in the metadata
+        metadata_dict = normalize_ionization(metadata_dict)
+
+        # Normalize the instruments and resolution data in the metadata
+        metadata_dict = normalize_instruments_and_resolution(metadata_dict)
+
         # Normalize adduct data in the metadata
         metadata_dict = normalize_adduct(metadata_dict)
 
@@ -40,6 +46,9 @@ def normalize_values(metadata_dict):
         # Normalize the ion mode in the metadata, from long form to short standardized form
         metadata_dict = normalize_ionmode(metadata_dict)
 
+        # Normalize the predicted value in the metadata
+        metadata_dict = normalize_predicted(metadata_dict)
+
         # ckeck if adduct in pos is really pos (exemple)
         metadata_dict = check_for_bad_adduct(metadata_dict)
 
@@ -48,16 +57,8 @@ def normalize_values(metadata_dict):
             # Normalize MS level
             metadata_dict = normalize_ms_level(metadata_dict)
 
-            # Normalize the predicted value in the metadata
-            metadata_dict = normalize_predicted(metadata_dict)
-
             # Normalize Retention Time in the metadata which can be represented in different units
             metadata_dict = normalize_retentiontime(metadata_dict)
 
-            # Normalize Ionization in the metadata
-            metadata_dict = normalize_ionization(metadata_dict)
-
-            # Normalize the instruments and resolution data in the metadata
-            metadata_dict = normalize_instruments_and_resolution(metadata_dict)
 
     return metadata_dict

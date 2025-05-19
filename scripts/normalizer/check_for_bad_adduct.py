@@ -1,5 +1,5 @@
-import deletion_report
-import globals_vars
+import scripts.deletion_report
+import scripts.globals_vars
 import re
 
 def check_for_bad_adduct(metadata_dict):
@@ -23,31 +23,52 @@ def check_for_bad_adduct(metadata_dict):
     """
     adduct = metadata_dict['PRECURSORTYPE']
     ionmode = metadata_dict['IONMODE']
+    predicted = metadata_dict['PREDICTED']
+
+    if predicted == "true":
+        if not adduct:
+            if ionmode == 'positive':
+                metadata_dict['PRECURSORTYPE'] = "[M+H]+"
+                adduct = metadata_dict['PRECURSORTYPE']
+            elif ionmode == 'negative':
+                metadata_dict['PRECURSORTYPE'] = "[M-H]-"
+                adduct = metadata_dict['PRECURSORTYPE']
+
+    instrument_type = metadata_dict["INSTRUMENTTYPE"]
+    if re.search(r"\bGC\b", instrument_type):
+        if not adduct:
+            return metadata_dict
 
     if adduct == "M":
         if ionmode == 'positive':
-            adduct = "M+"
+            adduct = "[M]+"
             metadata_dict['PRECURSORTYPE'] = adduct
             return metadata_dict
         elif ionmode == 'negative':
-            adduct = "M-"
+            adduct = "[M]-"
             metadata_dict['PRECURSORTYPE'] = adduct
             return metadata_dict
 
 
-    if not re.search(globals_vars.is_adduct_pattern, adduct):
-        deletion_report.no_or_bad_adduct += 1
+    if not re.search(scripts.globals_vars.is_adduct_pattern, adduct):
+        metadata_dict['DELETION_REASON'] = "spectrum deleted because its adduct field is empty or the value entered is not an adduct"
+        scripts.deletion_report.deleted_spectrum_list.append(metadata_dict)
+        scripts.deletion_report.no_or_bad_adduct += 1
         return None
 
     if ionmode == 'positive':
-        if adduct.endswith('-'):
-            deletion_report.no_or_bad_adduct += 1
+        if adduct in scripts.globals_vars.adduct_massdiff_dict_NEG:
+            metadata_dict['DELETION_REASON'] = "spectrum deleted because the adduct corresponds to the wrong ionization mode (neg adduct in pos ionmode)."
+            scripts.deletion_report.deleted_spectrum_list.append(metadata_dict)
+            scripts.deletion_report.no_or_bad_adduct += 1
             return None
         else:
             return metadata_dict
     elif ionmode == 'negative':
-        if adduct.endswith('+'):
-            deletion_report.no_or_bad_adduct += 1
+        if adduct in scripts.globals_vars.adduct_massdiff_dict_POS:
+            metadata_dict['DELETION_REASON'] = "spectrum deleted because the adduct corresponds to the wrong ionization mode (pos adduct in neg ionmode)."
+            scripts.deletion_report.deleted_spectrum_list.append(metadata_dict)
+            scripts.deletion_report.no_or_bad_adduct += 1
             return None
         else:
             return metadata_dict

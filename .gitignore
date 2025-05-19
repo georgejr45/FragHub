@@ -3,3 +3,10 @@
 /datas/update.json
 .venv
 **/__pycache__/
+/datas/adduct_to_convert.xlsx
+/scripts/build/
+/scripts/FragHub.spec
+/scripts/dist/FragHub/
+/scripts/dist/FragHub.zip
+/scripts/dist/build/
+/scripts/dist/dist/

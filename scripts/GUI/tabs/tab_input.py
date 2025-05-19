@@ -2,8 +2,17 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSpacerItem, QSiz
 from PyQt6.QtGui import QFont, QIcon, QPixmap
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QFileDialog
-from ..utils.global_vars import parameters_dict  # Importer le dictionnaire global
+from scripts.GUI.utils.global_vars import parameters_dict  # Importer le dictionnaire global
 import os
+
+import sys
+
+# Si le fichier est exécuté comme un exécutable PyInstaller
+if getattr(sys, 'frozen', False):
+    BASE_DIR = sys._MEIPASS
+else:
+    # Si le fichier est exécuté comme un script Python
+    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 class InputTab(QWidget):
@@ -16,7 +25,7 @@ class InputTab(QWidget):
 
         # Créer le bouton de sélection de fichiers
         button = QPushButton()
-        button.setIcon(QIcon('./GUI/assets/files_icon.png'))
+        button.setIcon(QIcon(os.path.join(BASE_DIR,'./GUI/assets/files_icon.png')))
         button.setIconSize(QSize(128, 128))
         button.setFixedSize(140, 140)
         button.clicked.connect(self.browse_files)  # Connecter la fonction

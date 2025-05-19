@@ -1,13 +1,15 @@
 <div align="center">
-  <img src="scripts/GUI/assets/FragHub_icon.png" alt="FragHub Icon" /> 1.2.6
+  <img src="scripts/GUI/assets/FragHub_icon.png" alt="FragHub Icon" /> 1.3.1
 </div>
 
-# FragHub  (1.2.6)
+# FragHub  (1.3.1)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 ![Required_Python](https://img.shields.io/badge/Python-3.12-blue)
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/license-CC--BY--NC%204.0-lightgrey)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14761050.svg)](https://doi.org/10.5281/zenodo.14761050)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15421997.svg)](https://doi.org/10.5281/zenodo.15421997)
 
+## INSTALL INSTRUCTIONS BELLOW
+[See install instructions](#installation)
 
 ## DESCRIPTION
 ![img_10.png](img_10.png)
@@ -24,18 +26,22 @@ Key features:<br>
 **Warning**: All spectra deemed inconsistent, i.e., those lacking SMILES and InChI, precursor m/z, and adduct information, are removed during the processing by FragHub.![img_9.png](img_9.png)
 
 ## INSTALLATION
-
-To install all dependencies, double-click on the install script corresponding to your OS.<br>
-NB: **Make sure that python is in the path variables and that you run Python >= 3.12**<br>
+1) Download FragHub executable corresponding to your OS HERE:<br>
+   **Windows** x64: [Download Windows x64 Installer](https://zenodo.org/api/records/15422292/draft/files/setup_windows_x64.exe/content)<br>
+   **Linux** x64: [Download Linux x64 Installer](https://zenodo.org/api/records/15422292/draft/files/setup_Linux_x64/content)<br>
+   **macOS** arm64: [Download macOS arm64 Installer](https://zenodo.org/api/records/15422292/draft/files/FragHub1.3.1.dmg/content) (Execute commande 'xattr -cr FragHub_macOS_1.3.1.app' in terminal after download)<br>
+2) Execute setup installer (macOS: drag to App)
+3) select installation folder
+4) click install
 
 ## USE
 
 To use this programme:
 
-1) Double-click on your corresponding OS run script into scripts folder.<br>
+1) Go to install directory then run FragHub executable (feel free to create shortcut).
 >NB: If you have a file that contains **only** In-Silico spectra AND this is not specified within the filename or the spectrum, you can simply suffix the filename with "_insilico", like this: "UNPD_ISDB_R_p01_insilico.mgf".<br>
 <br>
->NB: If you have a file that contains **only** GC-IE spectra AND this is not specified within the filename or the spectrum, you can simply suffix the filename with "_GC_IE", like this: "GMD_20111121_MDN35_ALK_MSP_GC_IE.msp".<br>
+>NB: If you have a file that contains **only** GC spectra AND this is not specified within the filename or the spectrum, you can simply suffix the filename with "_GC", like this: "GMD_20111121_MDN35_ALK_MSP_GC.msp".<br>
 
 2) FragHub GUI start: **at any time you can move the mouse over 🛈 to view a detailed description**<br>
    1) First tab: Select single or multiple .json, .csv, .msp, or .mgf files.<br>![img.png](img.png)
