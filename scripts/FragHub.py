@@ -125,8 +125,8 @@ class MainWindow(QMainWindow):
             if self.progress_window:
                 self.progress_window.close()  # Ferme la fenêtre de progression
                 self.progress_window = None
-            except Exception as e:
-                print(f"Erreur lors de la fermeture de progress_window dans clean_exit: {e}")
+        except Exception as e:
+            print(f"Erreur lors de la fermeture de progress_window dans clean_exit: {e}")
 
         self.running = False  # S'assurer que l'état est correct
 
